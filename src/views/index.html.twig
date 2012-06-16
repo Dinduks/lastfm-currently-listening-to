@@ -2,16 +2,21 @@
 
 {% block content %}
     <header>
-        <h1>Is <a href="http://twitter.com/hhamon">@hhamon</a> Flying?</h1>
+    <h1>What is <a href="http://last.fm/user/{{ username }}">{{ username }}</a> currently listening to?</h1>
     </header>
     <section>
-        {% if is_flying|default(false) %}
-            <div class="answer">YES</div>
-            <div class="tweet">{{ oembed_html|raw }}</div>
+        {% if is_listening|default(false) %}
+        <div class="yes-answer answer">
+          {{ song }}
+          <br />
+          <span class="by">by</span>
+          </br />
+          {{ artist }}
+        </div>
         {% else %}
-            <div class="answer">NO</div>
+        <div class="no-answer answer">{{ username }} isn't listening to music</div>
         {% endif %}
     </section>
 
-    <a href="http://github.com/jmikola/hhamon-flying"><img style="position: absolute; top: 0; right: 0; border: 0;" src="//s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <a href="http://github.com/dinduks/lastfm-listening"><img style="position: absolute; top: 0; right: 0; border: 0;" src="//s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 {% endblock %}

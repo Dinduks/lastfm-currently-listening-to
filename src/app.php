@@ -1,9 +1,6 @@
 <?php
 
-use HugoFlying\Silex\Provider\TweetInspectorServiceProvider;
-use Kud\Silex\Provider\TmhOAuthServiceProvider;
 use Silex\Application;
-use Silex\Provider\HttpCacheServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,27 +8,24 @@ $loader = require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Application();
 
-require_once __DIR__.'/config.php';
-
-$app->register(new HttpCacheServiceProvider());
-
-$app->register(new TmhOAuthServiceProvider());
-
-$app->register(new TweetInspectorServiceProvider());
-
-$app->register(new TwigServiceProvider(), array(
-    'twig.options' => array('cache' => $app['twig.cache_dir']),
-    'twig.path'    => __DIR__.'/views',
-));
+$app->register(new TwigServiceProvider(), array('twig.path'    => __DIR__.'/views'));
 
 $app->error(function (\Exception $e, $code) use ($app) {
-    if ($app['debug']) {
+    if ($app['debug'])
         return;
-    }
 
     $error = 404 == $code ? $e->getMessage() : null;
 
     return new Response($app['twig']->render('error.html.twig', array('error' => $error)), $code);
+});
+
+$app->before(function() use ($app) {
+    if (isset($_ENV['LASTFM_API_KEY']))
+        $app['lastfmApiKey'] = $_ENV['LASTFM_API_KEY'];
+    else if (apache_getenv('LASTFM_API_KEY'))
+        $app['lastfmApiKey'] = apache_getenv('LASTFM_API_KEY');
+    else
+        return new Response($app['twig']->render('error.html.twig', array('error' => 'No Last.fm API key found!')));
 });
 
 require_once __DIR__.'/controllers.php';
