@@ -1,3 +1,5 @@
 cache/*
 src/config.php
 vendor/*
+.lvimrc
+vhost.conf
