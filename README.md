@@ -1,6 +1,8 @@
-# hhamon-flying
+## lastfm-currently-listening-to
 
-A silly [Silex][1] application to track [hhamon][2]'s flight status.
+A [Silex][1] application to know which song is a [Last.fm][2] user listening to.
+
+Originally a fork of [jmikola][3]'s [hhamon-flying][4] app.  
 
 ## Setup
 
@@ -11,14 +13,9 @@ A silly [Silex][1] application to track [hhamon][2]'s flight status.
 ### Configuration
 
 The `src/` directory includes a `config.php.dist` file, which should be copied
-to `config.php` and populated with your Twitter API credentials.
-
-Additionally, the cache directory and TTL options can be customized.
-
-### Cache Directory
-
-Create the cache directory (`cache/` by default) and ensure it is writable by
-your web server.
+to `config.php` and populated with your Last.fm API key.
 
   [1]: http://silex.sensiolabs.org/
-  [2]: http://twitter.com/hhamon
+  [2]: http://last.fm/
+  [3]: https://github.com/jmikola
+  [4]: https://github.com/jmikola/hhamon-flying
