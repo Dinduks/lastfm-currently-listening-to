@@ -2,6 +2,7 @@
 
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\DoctrineServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
 
 $loader = require_once __DIR__.'/../vendor/autoload.php';
@@ -11,6 +12,13 @@ $app = new Application();
 require_once __DIR__.'/config.php';
 
 $app->register(new TwigServiceProvider(), array('twig.path'    => __DIR__.'/views'));
+
+$app->register(new DoctrineServiceProvider(), array(
+    'db.options' => array(
+        'driver' => 'pdo_sqlite',
+        'path'   => __DIR__.'/../db/users.db',
+    ),
+));
 
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug'])

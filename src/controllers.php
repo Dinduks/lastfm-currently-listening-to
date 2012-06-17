@@ -1,9 +1,9 @@
 <?php
 
-$app->get('/{name}', function($name) use ($app) {
-    $params = array('username' => $name);
+$app->get('/{username}', function($username) use ($app) {
+    $params = array('username' => $username);
 
-    $query  = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user={$name}&limit=1&api_key={$app['lastfmApiKey']}";
+    $query  = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user={$username}&limit=1&api_key={$app['lastfmApiKey']}";
     $domdoc = new DOMDocument();
     $domdoc->load($query);
     $track  = $domdoc->getElementsByTagName('track')->item(0);
@@ -12,6 +12,7 @@ $app->get('/{name}', function($name) use ($app) {
         $params['artist'] = $track->getElementsByTagName('artist')->item(0)->nodeValue;
         $params['song'] = $track->getElementsByTagName('name')->item(0)->nodeValue;
         $params['is_listening'] = true;
+        $app['db']->query("REPLACE INTO users ('username', 'updated_at') VALUES ('$username', '".substr(microtime(true), 0, 10)."')");
     } else {
         $params['is_listening'] = false;
     }
