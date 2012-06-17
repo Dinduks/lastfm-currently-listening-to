@@ -30,6 +30,8 @@ $app->error(function (\Exception $e, $code) use ($app) {
 $app->before(function() use ($app) {
     if (isset($_SERVER['LASTFM_API_KEY']))
         $app['lastfmApiKey'] = $_SERVER['LASTFM_API_KEY'];
+    else if (isset($_SERVER['REDIRECT_LASTFM_API_KEY']))
+        $app['lastfmApiKey'] = $_SERVER['REDIRECT_LASTFM_API_KEY'];
     else
         return new Response($app['twig']->render('error.html.twig', array('error' => 'No Last.fm API key found!')));
 });
