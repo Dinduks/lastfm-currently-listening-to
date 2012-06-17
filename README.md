@@ -12,8 +12,10 @@ Originally a fork of [jmikola][3]'s [hhamon-flying][4] app.
 
 ### Configuration
 
-The `src/` directory includes a `config.php.dist` file, which should be copied
-to `config.php` and populated with your Last.fm API key.
+Set your Last.fm API key in an environment variable called `LASTFM_API_KEY`.  
+If you use Apache you can put in your virtual host configuration or in `web/.htaccess`:
+
+    SetEnv LASTFM_API_KEY your_key
 
   [1]: http://silex.sensiolabs.org/
   [2]: http://last.fm/
