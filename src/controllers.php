@@ -1,5 +1,9 @@
 <?php
 
+$app->get('/', function() use ($app) {
+    return $app['twig']->render('index.html.twig');
+});
+
 $app->get('/{username}', function($username) use ($app) {
     $params = array('username' => $username);
 
@@ -17,5 +21,5 @@ $app->get('/{username}', function($username) use ($app) {
         $params['is_listening'] = false;
     }
 
-    return $app['twig']->render('index.html.twig', $params);
+    return $app['twig']->render('result.html.twig', $params);
 });

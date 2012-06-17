@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <header>
+    <h1>What is <a href="http://last.fm/user/{{ username }}">{{ username }}</a> currently listening to?</h1>
+    </header>
+    <section>
+        {% if is_listening|default(false) %}
+        <div class="yes-answer answer">
+          {{ song }}
+          <br />
+          <span class="by">by</span>
+          </br />
+          {{ artist }}
+        </div>
+        {% else %}
+        <div class="no-answer answer">{{ username }} isn't listening to music right now</div>
+        {% endif %}
+    </section>
+
+    <a href="https://github.com/Dinduks/lastfm-currently-listening-to"><img style="position: absolute; top: 0; right: 0; border: 0;" src="//s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+{% endblock %}
