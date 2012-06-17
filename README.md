@@ -12,10 +12,14 @@ Originally a fork of [jmikola][3]'s [hhamon-flying][4] app.
 
 ### Configuration
 
-Set your Last.fm API key in an environment variable called `LASTFM_API_KEY`.  
+* Set your Last.fm API key in an environment variable called `LASTFM_API_KEY`.  
 If you use Apache you can put in your virtual host configuration or in `web/.htaccess`:
 
     SetEnv LASTFM_API_KEY your_key
+
+* Create the database and the *users* table:
+
+    sqlite3 db/users.db < db/create_table.sql
 
   [1]: http://silex.sensiolabs.org/
   [2]: http://last.fm/
